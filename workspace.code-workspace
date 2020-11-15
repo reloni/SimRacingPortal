@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.osx": {
+			"TOOLCHAINS": "org.swift.50202011131a",
+			"SOURCEKIT_TOOLCHAIN_PATH": "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2020-11-13-a.xctoolchain"
+		}
+	}
+}
