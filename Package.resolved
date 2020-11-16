@@ -30,7 +30,7 @@
       },
       {
         "package": "fluent",
-        "repositoryURL": "https://github.com/vapor/fluent.git",
+        "repositoryURL": "https://github.com/vapor/fluent",
         "state": {
           "branch": null,
           "revision": "e681c93df3201a2d8ceef15e8a9a0634578df233",
@@ -48,11 +48,29 @@
       },
       {
         "package": "fluent-postgres-driver",
-        "repositoryURL": "https://github.com/vapor/fluent-postgres-driver.git",
+        "repositoryURL": "https://github.com/vapor/fluent-postgres-driver",
         "state": {
           "branch": null,
           "revision": "0a925f4c62bbd77665653e2dbce7217bbc5a971d",
           "version": "2.1.1"
+        }
+      },
+      {
+        "package": "leaf",
+        "repositoryURL": "https://github.com/vapor/leaf",
+        "state": {
+          "branch": null,
+          "revision": "66060b77f6f234a48761d594d055ce981d411dfc",
+          "version": "4.0.0"
+        }
+      },
+      {
+        "package": "leaf-kit",
+        "repositoryURL": "https://github.com/vapor/leaf-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "0f0866e0709c685262dc4b6e726f2d424e37b12c",
+          "version": "1.0.0"
         }
       },
       {
@@ -174,7 +192,7 @@
       },
       {
         "package": "vapor",
-        "repositoryURL": "https://github.com/vapor/vapor.git",
+        "repositoryURL": "https://github.com/vapor/vapor",
         "state": {
           "branch": null,
           "revision": "b040f90b80ac5906fcf1476a46d360c159f01892",
