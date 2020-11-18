@@ -10,7 +10,7 @@ struct MainController: RouteCollection {
     func homeView(req: Request) throws -> EventLoopFuture<View> {
         return req.leaf.render("index", [
             "title": "myPage - Home",
-            "data": "Hi there, welcome to my awesome page!",
+            "header": "Page header",
         ])
     }
 }
