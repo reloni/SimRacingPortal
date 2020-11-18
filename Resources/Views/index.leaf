@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/frontend.css">
-        <title>#(title)</title>
-    </head>
-    <body>
-        <main>
-            <section class="wrapper">
-                <h1>#(body)</h1>
-                <h1>Test Text</h1>
-            </section>
-        </main>
-    </body>
-</html>
+#extend("base"):
+    #export("body"):
+        <h1>#(data)</h1>
+    #endexport
+#endextend
