@@ -37,7 +37,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <div class="card" style="width: 18rem;">
+                        <div class="card shadow-lg bg-white rounded" style="width: 18rem;">
                             <img class="card-img-top" src="/images/example.jpg" alt="Card image cap" style="height: 12rem">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -47,7 +47,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="card" style="width: 18rem;">
+                        <div class="card shadow-lg bg-white rounded" style="width: 18rem;">
                             <img class="card-img-top" src="/images/example.jpg" alt="Card image cap" style="height: 12rem">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -58,7 +58,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="card" style="width: 18rem">
+                        <div class="card shadow-lg bg-white rounded" style="width: 18rem">
                             <img class="card-img-top" src="/images/example-2.jpg" alt="Card image cap" style="height: 12rem">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
