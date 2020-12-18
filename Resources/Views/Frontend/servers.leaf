@@ -1,158 +1,53 @@
 #extend("navbar-view"):
-    #export("body"):
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-6">
-                <h1>Running Servers</h1>
-            </div>
-            <div class="col-6 text-right">
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="\#createServerArea" aria-expanded="false" aria-controls="createServerArea">Create server</button>
-            </div>
+#export("body"):
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6">
+            <h1>Running Servers</h1>
         </div>
-        
-        <div class="collapse mb-1" id="createServerArea">
-            <div class="card card-body">
-              Create server fields will be here
-            </div>
-          </div>
-        
-        <div class="row">
-            <div class="col col-12 col-lg-6 my-2">
-                <div class="card">
-                    <h5 class="card-header">Server name</h5>
-                    <table class="table table-sm table-striped table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Parameter 1</th>
-                                <td class="text-right">Value</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 2</th>
-                                <td class="text-right">Value 2</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 3</th>
-                                <td class="text-right">Value 3</td>
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                    <div class="mb-2 mr-2 d-flex justify-content-end">
-                        <a href="#" class="btn btn-warning mr-2">Restart</a>
-                        <a href="#" class="btn btn-danger">Stop</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col col-12 col-lg-6 my-2">
-                <div class="card">
-                    <h5 class="card-header">Server name</h5>
-                    <table class="table table-sm table-striped table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Parameter 1</th>
-                                <td class="text-right">Value</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 2</th>
-                                <td class="text-right">Value 2</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 3</th>
-                                <td class="text-right">Value 3</td>
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                    <div class="mb-2 mr-2 d-flex justify-content-end">
-                        <a href="#" class="btn btn-warning mr-2">Restart</a>
-                        <a href="#" class="btn btn-danger">Stop</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col col-12 col-lg-6 my-2">
-                <div class="card">
-                    <h5 class="card-header">Server name</h5>
-                    <table class="table table-sm table-striped table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Parameter 1</th>
-                                <td class="text-right">Value</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 2</th>
-                                <td class="text-right">Value 2</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 3</th>
-                                <td class="text-right">Value 3</td>
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                    <div class="mb-2 mr-2 d-flex justify-content-end">
-                        <a href="#" class="btn btn-warning mr-2">Restart</a>
-                        <a href="#" class="btn btn-danger">Stop</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col col-12 col-lg-6 my-2">
-                <div class="card">
-                    <h5 class="card-header">Server name</h5>
-                    <table class="table table-sm table-striped table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Parameter 1</th>
-                                <td class="text-right">Value</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 2</th>
-                                <td class="text-right">Value 2</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 3</th>
-                                <td class="text-right">Value 3</td>
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                    <div class="mb-2 mr-2 d-flex justify-content-end">
-                        <a href="#" class="btn btn-warning mr-2">Restart</a>
-                        <a href="#" class="btn btn-danger">Stop</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col col-12 col-lg-6 my-2">
-                <div class="card">
-                    <h5 class="card-header">Server name</h5>
-                    <table class="table table-sm table-striped table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Parameter 1</th>
-                                <td class="text-right">Value</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 2</th>
-                                <td class="text-right">Value 2</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Parameter 3</th>
-                                <td class="text-right">Value 3</td>
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                    <div class="mb-2 mr-2 d-flex justify-content-end">
-                        <a href="#" class="btn btn-warning mr-2">Restart</a>
-                        <a href="#" class="btn btn-danger">Stop</a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="col-6 text-right">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="\#createServerArea"
+                aria-expanded="false" aria-controls="createServerArea">Create server</button>
         </div>
     </div>
-    #endexport
+
+    <div class="collapse mb-1" id="createServerArea">
+        <div class="card card-body">
+            Create server fields will be here
+        </div>
+    </div>
+
+    <div class="row">
+        #for(server in servers):
+
+        <div class="col col-12 col-lg-6 my-2">
+            <div class="card">
+                <h5 class="card-header">#(server.name)</h5>
+                <table class="table table-sm table-striped table-borderless">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Track</th>
+                            <td class="text-right">#(server.track)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Image version</th>
+                            <td class="text-right">#(server.version)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Port</th>
+                            <td class="text-right">#(server.port)</td>
+                        </tr>
+                    </tbody>
+    
+                </table>
+                <div class="mb-2 mr-2 d-flex justify-content-end">
+                    <a href="#" class="btn btn-warning mr-2">Restart</a>
+                    <a href="#" class="btn btn-danger">Stop</a>
+                </div>
+            </div>
+        </div>
+        #endfor
+    </div>
+</div>
+#endexport
 #endextend
