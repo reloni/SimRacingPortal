@@ -23,27 +23,27 @@
         <div class="col col-12 col-lg-6 my-2">
             <div class="card">
                 <h5 class="card-header">#(server.name)</h5>
-                <table class="table table-sm table-striped table-borderless">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Track</th>
-                            <td class="text-right">#(server.track)</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Image version</th>
-                            <td class="text-right">#(server.version)</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Port</th>
-                            <td class="text-right">#(server.port)</td>
-                        </tr>
-                    </tbody>
-    
-                </table>
-                <div class="mb-2 mr-2 d-flex justify-content-end">
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        Track
+                        <span>#(server.track)</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        Image version
+                        <span>#(server.version)</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between border-bottom-0">
+                        Port
+                        <span>#(server.port)</span>
+                    </li>
+                </ul>
+
+                <div class="d-flex justify-content-end card-footer">
                     <a href="#" class="btn btn-warning mr-2">Restart</a>
                     <a href="#" class="btn btn-danger">Stop</a>
                 </div>
+                
             </div>
         </div>
         #endfor
