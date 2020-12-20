@@ -1,6 +1,21 @@
 import Vapor
 import Leaf
 
+extension String {
+    func asJsonData() throws -> Data? {
+        return try (JSONSerialization.jsonObject(with: Data(self.utf8), options: []) as? [String: AnyObject])
+            .map { try JSONSerialization.data(withJSONObject: $0, options: []) }
+    }
+}
+
+extension Data {
+    func asByteBuffer() -> ByteBuffer {
+        var buffer = ByteBufferAllocator().buffer(capacity: count)
+        buffer.writeBytes(self)
+        return  buffer
+    }
+}
+
 protocol ViewContext: Content {
     var title: String { get }
 }
@@ -22,11 +37,18 @@ struct TextPostRequest: Decodable {
     let exampleInputPassword1: String
 }
 
+struct CreateDockerImageRequest: Encodable {
+    let image: String
+}
+
 struct MainController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
         routes.get("servers", use: serversView)
         routes.post("servers", use: postServersView)
+
+        routes.get("docker", "list", use: listDockerContainers)
+        routes.post("docker", "create", use: createContainer)
     }
     
     func serversView(req: Request) throws -> EventLoopFuture<View> {
@@ -57,5 +79,19 @@ struct MainController: RouteCollection {
         // let context = ServersViewContext.init(title: "Server management", servers: servers)
 
         // return req.leaf.render("servers", context).encodeResponse(for: req)
+    }
+
+    func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
+        return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
+    }
+
+
+    func createContainer(req: Request) throws -> EventLoopFuture<Response> {
+        // print(req.body.data.)
+        return req.client.post("http://localhost.charlesproxy.com:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
+            try r.query.encode(["name": "new_server-2"])
+            // r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
+            r.body = req.body.data
+        }.encodeResponse(for: req)
     }
 }
