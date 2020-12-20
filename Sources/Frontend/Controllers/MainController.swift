@@ -1,5 +1,6 @@
 import Vapor
 import Leaf
+import DockerClient
 
 extension String {
     func asJsonData() throws -> Data? {
@@ -92,9 +93,9 @@ struct MainController: RouteCollection {
     }
 
     func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
-        return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
+        return req.docker.runningContainers().encodeResponse(for: req)
+        // return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
     }
-
 
     func createContainer(req: Request) throws -> EventLoopFuture<Response> {
         // print(req.body.data.)

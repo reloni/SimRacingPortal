@@ -29,10 +29,23 @@ let package = Package(
             ]
         ),
         .target(
+            name: "DockerClient",
+            dependencies: [
+                .product(name: "Vapor", package: "vapor")
+            ],
+            swiftSettings: [
+                // Enable better optimizations when building in Release configuration. Despite the use of
+                // the `.unsafeFlags` construct required by SwiftPM, this flag is recommended for Release
+                // builds. See <https://github.com/swift-server/guides#building-for-production> for details.
+                .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
+            ]
+        ),
+        .target(
             name: "Frontend",
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
-                .product(name: "Leaf", package: "leaf")
+                .product(name: "Leaf", package: "leaf"),
+                .target(name: "DockerClient")
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of
