@@ -32,9 +32,9 @@ struct ServersViewContext: ViewContext {
     let servers: [Server]
 }
 
-struct TextPostRequest: Decodable {
-    let exampleInputEmail1: String
-    let exampleInputPassword1: String
+struct CreateServerRequest: Decodable {
+    let name: String
+    let track: String
 }
 
 struct CreateDockerImageRequest: Encodable {
@@ -65,9 +65,19 @@ struct MainController: RouteCollection {
     }
 
     func postServersView(req: Request) throws -> EventLoopFuture<Response> {
-        let body = try req.content.decode(TextPostRequest.self)
-        print(body)
-        return req.eventLoop.future(req.redirect(to: "/servers"))
+        let body = try req.content.decode(CreateServerRequest.self)
+
+        return req.client.post("http://localhost:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
+            try r.query.encode(["name": body.name])
+            r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
+        }.flatMap { _ in 
+            let servers: [Server] = [.init(name: body.name, version: "1.6.5", port: 9001, track: body.track),]
+            let context = ServersViewContext.init(title: "Server management", servers: servers)
+
+            return req.leaf.render("servers", context).encodeResponse(for: req)
+        }
+        
+        // return req.eventLoop.future(req.redirect(to: "/servers"))
 
         // let servers: [Server] = [
         //     .init(name: "Serv 1", version: "1.6.5", port: 9001, track: "Imola"),

@@ -12,6 +12,16 @@
             "runOptions": {
                 "instanceLimit": 2
             }
+        },
+        {
+            "label": "Map docker.sock to TCP",
+            "type": "shell",
+            "command": "socat -d -d TCP4-LISTEN:15432,fork UNIX-CONNECT:/var/run/docker.sock",
+            "group": "build",
+            "problemMatcher": [],
+            "runOptions": {
+                "instanceLimit": 1
+            }
         }
     ]
 }
