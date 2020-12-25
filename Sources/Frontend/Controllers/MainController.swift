@@ -93,7 +93,7 @@ struct MainController: RouteCollection {
     }
 
     func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
-        return req.docker.runningContainers().encodeResponse(for: req)
+        return req.docker.listContainers().encodeResponse(for: req)
         // return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
     }
 

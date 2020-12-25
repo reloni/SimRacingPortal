@@ -6,7 +6,7 @@
         {
             "label": "Run frontend",
             "type": "shell",
-            "command": "lsof -i :9000 -sTCP:LISTEN | awk 'NR > 1 {print $2}'| xargs kill -15 && swift run Frontend serve --port 9000 --env development",
+            "command": "Scripts/run-frontend.sh",
             "group": "build",
             "problemMatcher": [],
             "runOptions": {
@@ -16,7 +16,7 @@
         {
             "label": "Run Api",
             "type": "shell",
-            "command": "lsof -i :8000 -sTCP:LISTEN | awk 'NR > 1 {print $2}'| xargs kill -15 && swift run Api serve --port 8000 --env development",
+            "command": "Scripts/run-api.sh",
             "group": "build",
             "problemMatcher": [],
             "runOptions": {
