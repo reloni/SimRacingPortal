@@ -1,5 +1,16 @@
 import Foundation
 
+public enum DockerParameter: Encodable {
+  case all(Bool)
+
+  public func encode(to encoder: Encoder) throws {    
+    var container = encoder.container(keyedBy: CustomCodingKey.self)
+    switch self {
+      case .all(let v): try container.encode(v, forKey: CustomCodingKey.init(stringValue: "all")!)
+    }
+  }
+}
+
 struct CustomCodingKey: CodingKey {
   var stringValue: String
 

@@ -14,6 +14,16 @@
             }
         },
         {
+            "label": "Run Api",
+            "type": "shell",
+            "command": "lsof -i :8000 -sTCP:LISTEN | awk 'NR > 1 {print $2}'| xargs kill -15 && swift run Api serve --port 8000 --env development",
+            "group": "build",
+            "problemMatcher": [],
+            "runOptions": {
+                "instanceLimit": 2
+            }
+        },
+        {
             "label": "Map docker.sock to TCP",
             "type": "shell",
             "command": "socat -d -d TCP4-LISTEN:15432,fork UNIX-CONNECT:/var/run/docker.sock",

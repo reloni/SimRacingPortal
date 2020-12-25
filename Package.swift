@@ -19,7 +19,8 @@ let package = Package(
             dependencies: [
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
-                .product(name: "Vapor", package: "vapor")
+                .product(name: "Vapor", package: "vapor"),
+                .target(name: "DockerClient")
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of

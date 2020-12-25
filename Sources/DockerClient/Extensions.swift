@@ -2,7 +2,7 @@ import Vapor
 
 public extension Request {
     var docker: DockerClient {
-        DockerClient(httpClient: client)
+        .init(host: "localhost", port: 15432, httpClient: self.client)
     }
 }
 
