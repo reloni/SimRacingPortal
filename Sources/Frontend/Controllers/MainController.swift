@@ -52,6 +52,20 @@ struct CreateDockerImageRequest: Encodable {
     let image: String
 }
 
+enum ApiUri {
+    static let base: URI = {
+        "\(Environment.process.API_PROTOCOL!)://\(Environment.process.API_HOST!):\(Environment.process.API_PORT!)"
+    }()
+
+    case dockerList
+
+    var url: URI {
+        switch self {
+            case .dockerList: return "\(Self.base)/docker/list"
+        }
+    }
+}
+
 struct MainController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
@@ -64,7 +78,7 @@ struct MainController: RouteCollection {
     
     func serversView(req: Request) throws -> EventLoopFuture<View> {
         return req.client
-            .get("http://localhost:8000/docker/list")
+            .get(ApiUri.dockerList.url)
             .flatMapThrowing { res in try res.content.decode([DockerContainer].self) }
             .map { containers in ServersViewContext("Server management", containers) }
             .flatMap { req.leaf.render("servers", $0) }
