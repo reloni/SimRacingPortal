@@ -8,6 +8,7 @@ public struct DockerContainer: Content {
     public let state: ContainerState
     public let status: String
     public let command: String
+    public let labels: [String: String]
 }
 
 public enum ContainerState: String, Codable {
