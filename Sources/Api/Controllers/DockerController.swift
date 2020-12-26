@@ -24,7 +24,9 @@ struct DockerController: RouteCollection {
     }
 
     func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
-        return req.docker.listContainers(.all(true)).encodeResponse(for: req)
+        return req.docker
+            .listContainers(.all(true), .filters([.isTask(false), .ancestor("nginx:alpine")]))
+            .encodeResponse(for: req)
     }
 
     func createContainer(req: Request) throws -> EventLoopFuture<Response> {

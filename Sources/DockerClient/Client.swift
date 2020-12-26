@@ -14,8 +14,10 @@ public class DockerClient {
     }
 
     public func listContainers(_ parameters: DockerParameter...) -> EventLoopFuture<[DockerContainer]> {
-        httpClient.get("http://localhost:15432/containers/json") { req in 
-            try parameters.forEach { try req.query.encode($0) }
+        httpClient.get("\(baseUrl)/containers/json") { req in 
+            try req.query.encode(
+                parameters.reduce(into: [String: String]()) {  $0[$1.key] = $1.value }
+            )
         }.flatMapThrowing { res in
             return try res.content.decode([DockerContainer].self, using: DockerJSONDecoder())
         }

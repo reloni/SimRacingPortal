@@ -1,12 +1,39 @@
 import Foundation
 
-public enum DockerParameter: Encodable {
+public enum DockerParameter {
   case all(Bool)
+  case filters([DockerFilter])
 
-  public func encode(to encoder: Encoder) throws {    
-    var container = encoder.container(keyedBy: CustomCodingKey.self)
+  var key: String {
     switch self {
-      case .all(let v): try container.encode(v, forKey: CustomCodingKey.init(stringValue: "all")!)
+      case .all: return "all"
+      case .filters: return "filters"
+    }
+  }
+
+  var value: String {
+    switch self {
+      case .all(let v): return "\(v)"
+      case .filters(let filters):  return "{\(filters.map { "\($0.key):\($0.value)" }.joined(separator: ","))}"
+    }
+  }
+}
+
+public enum DockerFilter {
+  case ancestor(String)
+  case isTask(Bool)
+
+    var key: String {
+    switch self {
+      case .ancestor: return "\"ancestor\""
+      case .isTask: return "\"is-task\""
+    }
+  }
+
+  var value: String {
+    switch self {
+      case .ancestor(let v): return "[\"\(v)\"]"
+      case .isTask(let v): return "[\"\(v)\"]"
     }
   }
 }
