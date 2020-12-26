@@ -1,4 +1,5 @@
 import Vapor
+import Shared
 
 public class DockerClient {
     let baseUrl: URL
@@ -19,7 +20,7 @@ public class DockerClient {
                 parameters.reduce(into: [String: String]()) {  $0[$1.key] = $1.value }
             )
         }.flatMapThrowing { res in
-            return try res.content.decode([DockerContainer].self, using: DockerJSONDecoder())
+            try res.content.decode([DockerContainer].self, using: DockerJSONDecoder())
         }
     }
 }

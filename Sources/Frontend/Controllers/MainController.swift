@@ -1,6 +1,6 @@
 import Vapor
 import Leaf
-import DockerClient
+import Shared
 
 extension String {
     func asJsonData() throws -> Data? {
@@ -31,6 +31,16 @@ struct Server: Content {
 struct ServersViewContext: ViewContext {
     let title: String
     let servers: [Server]
+
+    init(title: String, servers: [Server]) {
+        self.title = title
+        self.servers = servers
+    }
+
+    init(_ title: String, _ dockerContainers: [DockerContainer]) {
+        self.title = title
+        self.servers = dockerContainers.map { Server.init(name: $0.names.first ?? "", version: "1", port: 1, track: $0.labels["track"] ?? "") }
+    }
 }
 
 struct CreateServerRequest: Decodable {
@@ -48,21 +58,16 @@ struct MainController: RouteCollection {
         routes.get("servers", use: serversView)
         routes.post("servers", use: postServersView)
 
-        routes.get("docker", "list", use: listDockerContainers)
-        routes.post("docker", "create", use: createContainer)
+        // routes.get("docker", "list", use: listDockerContainers)
+        // routes.post("docker", "create", use: createContainer)
     }
     
     func serversView(req: Request) throws -> EventLoopFuture<View> {
-        let servers: [Server] = [
-            .init(name: "Serv 1", version: "1.6.5", port: 9001, track: "Imola"),
-            .init(name: "Serv 2", version: "1.6.5", port: 9002, track: "Barcelona"),
-            .init(name: "Serv 3", version: "1.6.5", port: 9003, track: "Misano"),
-            .init(name: "Serv 5", version: "1.6.5", port: 9004, track: "Suzuka"),
-            .init(name: "Serv 6", version: "1.6.5", port: 9005, track: "Zandvoort")
-        ]
-        let context = ServersViewContext.init(title: "Server management", servers: servers)
-
-        return req.leaf.render("servers", context)
+        return req.client
+            .get("http://localhost:8000/docker/list")
+            .flatMapThrowing { res in try res.content.decode([DockerContainer].self) }
+            .map { containers in ServersViewContext("Server management", containers) }
+            .flatMap { req.leaf.render("servers", $0) }
     }
 
     func postServersView(req: Request) throws -> EventLoopFuture<Response> {
@@ -92,17 +97,17 @@ struct MainController: RouteCollection {
         // return req.leaf.render("servers", context).encodeResponse(for: req)
     }
 
-    func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
-        return req.docker.listContainers().encodeResponse(for: req)
-        // return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
-    }
+    // func listDockerContainers(req: Request) throws -> EventLoopFuture<Response> {
+    //     return req.docker.listContainers().encodeResponse(for: req)
+    //     // return req.client.get("http://localhost.charlesproxy.com:15432/containers/json").encodeResponse(for: req)
+    // }
 
-    func createContainer(req: Request) throws -> EventLoopFuture<Response> {
-        // print(req.body.data.)
-        return req.client.post("http://localhost.charlesproxy.com:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
-            try r.query.encode(["name": "new_server-2"])
-            // r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
-            r.body = req.body.data
-        }.encodeResponse(for: req)
-    }
+    // func createContainer(req: Request) throws -> EventLoopFuture<Response> {
+    //     // print(req.body.data.)
+    //     return req.client.post("http://localhost.charlesproxy.com:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
+    //         try r.query.encode(["name": "new_server-2"])
+    //         // r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
+    //         r.body = req.body.data
+    //     }.encodeResponse(for: req)
+    // }
 }
