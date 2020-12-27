@@ -36,25 +36,15 @@
                 <h5 class="card-header">#(server.name)</h5>
                 
                 <ul class="list-group list-group-flush">
+                    #for(prop in server.properties):
                     <li class="list-group-item d-flex justify-content-between">
-                        Track
-                        <span>#(server.track)</span>
+                        #(prop.key)
+                        <span>#(prop.value)</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        Image version
-                        <span>#(server.version)</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        State
-                        <span>#(server.state)</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between border-bottom-0">
-                        Port
-                        <span>#(server.port)</span>
-                    </li>
+                    #endfor
                 </ul>
 
-                <div class="d-flex justify-content-end card-footer">
+                <div class="d-flex justify-content-end card-footer border-top-0">
                     <a href="#" class="btn btn-warning mr-2">Restart</a>
                     <a href="#" class="btn btn-danger">Stop</a>
                 </div>

@@ -20,3 +20,13 @@ public enum ContainerState: String, Codable {
     case exited
     case dead
 }
+
+public struct KeyValuePair<K: Codable, V: Codable>: Content {
+    public let key: K
+    public let value: V
+
+    public init(key: K, value: V) {
+        self.key = key
+        self.value = value
+    }
+}
