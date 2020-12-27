@@ -2,78 +2,11 @@ import Vapor
 import Leaf
 import Shared
 
-extension String {
-    func asJsonData() throws -> Data? {
-        return try (JSONSerialization.jsonObject(with: Data(self.utf8), options: []) as? [String: AnyObject])
-            .map { try JSONSerialization.data(withJSONObject: $0, options: []) }
-    }
-}
-
-extension Data {
-    func asByteBuffer() -> ByteBuffer {
-        var buffer = ByteBufferAllocator().buffer(capacity: count)
-        buffer.writeBytes(self)
-        return  buffer
-    }
-}
-
-protocol ViewContext: Content {
-    var title: String { get }
-}
-
-struct Server: Content {
-    let name: String
-    let version: String
-    let port: Int
-    let track: String
-}
-
-struct ServersViewContext: ViewContext {
-    let title: String
-    let servers: [Server]
-
-    init(title: String, servers: [Server]) {
-        self.title = title
-        self.servers = servers
-    }
-
-    init(_ title: String, _ dockerContainers: [DockerContainer]) {
-        self.title = title
-        self.servers = dockerContainers.map { Server.init(name: $0.names.first ?? "", version: "1", port: 1, track: $0.labels["track"] ?? "") }
-    }
-}
-
-struct CreateServerRequest: Decodable {
-    let name: String
-    let track: String
-}
-
-struct CreateDockerImageRequest: Encodable {
-    let image: String
-}
-
-enum ApiUri {
-    static let base: URI = {
-        "\(Environment.process.API_PROTOCOL!)://\(Environment.process.API_HOST!):\(Environment.process.API_PORT!)"
-    }()
-
-    case dockerList
-
-    var url: URI {
-        switch self {
-            case .dockerList: return "\(Self.base)/docker/list"
-        }
-    }
-}
-
 struct MainController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
         routes.get("servers", use: serversView)
         routes.post("servers", use: postServersView)
-
-        // routes.get("docker", "list", use: listDockerContainers)
-        // routes.post("docker", "create", use: createContainer)
     }
     
     func serversView(req: Request) throws -> EventLoopFuture<View> {
