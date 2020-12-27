@@ -2,7 +2,7 @@ import Vapor
 
 enum ApiUri {
     static let base: URI = {
-        "\(Environment.process.API_PROTOCOL!)://\(Environment.process.API_HOST!):\(Environment.process.API_PORT!)"
+        "\(Environment.EnvVar.apiProtocol.value!)://\(Environment.EnvVar.apiHost.value!):\(Environment.EnvVar.apiPort.value!)"
     }()
 
     case dockerList

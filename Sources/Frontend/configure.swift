@@ -8,7 +8,7 @@ public func configure(_ app: Application) throws {
 
     app.leaf.cache.isEnabled = app.environment.isRelease
 
-    checkEnvParameters(app, "API_PROTOCOL", "API_HOST", "API_PORT")
+    checkEnvParameters(for: app)
 
     app.leaf.sources = try configureLeafSources()
     app.views.use(.leaf)
@@ -16,16 +16,16 @@ public func configure(_ app: Application) throws {
     try routes(app)
 }
 
-func checkEnvParameters(_ app: Application, _ parameters: String...) {
-    var isOk = true
-    parameters.forEach {
-        if Environment.get($0) == nil {
-            isOk = false
-            app.logger.critical("Env var \($0) not existed")
-        }
+func checkEnvParameters(for app: Application) {
+    let notExistedVars = Environment.EnvVar.allCases.compactMap { envVar -> String? in
+        Environment.get(envVar.rawValue) == nil ? envVar.rawValue : nil
     }
-    
-    if !isOk {
+
+    notExistedVars.forEach {
+        app.logger.critical("Env var \($0) not existed")
+    }
+
+    if notExistedVars.count > 0 {
         fatalError()
     }
 }
