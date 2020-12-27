@@ -38,14 +38,15 @@ func configureLeafSources() throws -> LeafSources {
                                     sandboxDirectory: app.directory.workingDirectory, 
                                     viewDirectory: app.directory.viewsDirectory, 
                                     defaultExtension: "leaf")
-    let frontendSource = NIOLeafFiles(fileio: app.fileio, 
-                                    limits: .default, 
-                                    sandboxDirectory: app.directory.workingDirectory, 
-                                    viewDirectory: "\(app.directory.viewsDirectory)/Frontend", 
-                                    defaultExtension: "leaf")
     
     try sources.register(using: defaultSource)
-    try sources.register(source: "Frontend", using: frontendSource, searchable: true)
+
+    // let frontendSource = NIOLeafFiles(fileio: app.fileio, 
+    //                                 limits: .default, 
+    //                                 sandboxDirectory: app.directory.workingDirectory, 
+    //                                 viewDirectory: "\(app.directory.viewsDirectory)", 
+    //                                 defaultExtension: "leaf")
+    // try sources.register(source: "Frontend", using: frontendSource, searchable: true)
 
     return sources
 }
