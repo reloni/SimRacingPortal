@@ -18,17 +18,19 @@ struct MainController: RouteCollection {
     }
 
     func postServersView(req: Request) throws -> EventLoopFuture<Response> {
-        let body = try req.content.decode(CreateServerRequest.self)
+        fatalError()
 
-        return req.client.post("http://localhost:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
-            try r.query.encode(["name": body.name])
-            r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
-        }.flatMap { _ in 
-            let servers: [Server] = [.init(name: body.name, version: "1.6.5", port: 9001, track: body.track),]
-            let context = ServersViewContext.init(title: "Server management", servers: servers)
+        // let body = try req.content.decode(CreateServerRequest.self)
 
-            return req.leaf.render("servers", context).encodeResponse(for: req)
-        }
+        // return req.client.post("http://localhost:15432/containers/create", headers: ["content-type": "application/json"]) { r in 
+        //     try r.query.encode(["name": body.name])
+        //     r.body = try "{ \"image\": \"nginx\" }".asJsonData()?.asByteBuffer()
+        // }.flatMap { _ in 
+        //     let servers: [Server] = [.init(name: body.name, version: "1.6.5", port: 9001, track: body.track),]
+        //     let context = ServersViewContext.init(title: "Server management", servers: servers)
+
+        //     return req.leaf.render("servers", context).encodeResponse(for: req)
+        // }
         
         // return req.eventLoop.future(req.redirect(to: "/servers"))
 

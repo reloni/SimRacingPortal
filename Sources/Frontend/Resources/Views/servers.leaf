@@ -44,6 +44,10 @@
                         Image version
                         <span>#(server.version)</span>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        State
+                        <span>#(server.state)</span>
+                    </li>
                     <li class="list-group-item d-flex justify-content-between border-bottom-0">
                         Port
                         <span>#(server.port)</span>
