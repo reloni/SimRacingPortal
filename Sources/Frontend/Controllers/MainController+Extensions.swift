@@ -21,17 +21,21 @@ extension MainController {
                     .init(key: "State", value: $0.state.rawValue),
                     .init(key: "Track", value: $0.labels["track"] ?? "")
                 ]
-                return Server.init(name: $0.names.first ?? "", 
-                            version: "1", 
-                            port: 1, 
-                            track: $0.labels["track"] ?? "",
-                            state: $0.state.rawValue, 
-                            properties: properties) 
+
+                let name = $0.names.first.map { String($0.drop(while: { $0 == "/" })) }                
+                return Server(id: $0.id, 
+                              name: name ?? "",  
+                              version: "1",  
+                              port: 1,  
+                              track: $0.labels["track"] ?? "", 
+                              state: $0.state.rawValue,  
+                              properties: properties) 
             }
         }
     }
 
     struct Server: Content {
+        let id: String
         let name: String
         let version: String
         let port: Int

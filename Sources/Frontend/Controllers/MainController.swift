@@ -5,8 +5,11 @@ import Shared
 struct MainController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
-        routes.get("servers", use: serversView)
-        routes.post("servers", use: postServersView)
+        let group = routes.grouped("servers")
+        group.get(use: serversView)
+        group.post("start", ":id", use: startServer)
+        group.post("stop", ":id", use: stopServer)
+        group.post("delete", ":id", use: deleteServer)
     }
     
     func serversView(req: Request) throws -> EventLoopFuture<View> {
@@ -15,6 +18,24 @@ struct MainController: RouteCollection {
             .flatMapThrowing { res in try res.content.decode([DockerContainer].self) }
             .map { containers in ServersViewContext("Server management", containers) }
             .flatMap { req.leaf.render("servers", $0) }
+    }
+
+    func deleteServer(req: Request) throws -> EventLoopFuture<Response> {
+        let id = req.parameters.get("id")!
+        app.logger.info("Delete server \(id)")
+        return req.eventLoop.future(req.redirect(to: "/servers"))
+    }
+
+    func stopServer(req: Request) throws -> EventLoopFuture<Response> {
+        let id = req.parameters.get("id")!
+        app.logger.info("Stop server \(id)")
+        return req.eventLoop.future(req.redirect(to: "/servers"))
+    }
+
+    func startServer(req: Request) throws -> EventLoopFuture<Response> {
+        let id = req.parameters.get("id")!
+        app.logger.info("Start server \(id)")
+        return req.eventLoop.future(req.redirect(to: "/servers"))
     }
 
     func postServersView(req: Request) throws -> EventLoopFuture<Response> {

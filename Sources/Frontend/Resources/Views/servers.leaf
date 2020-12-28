@@ -45,8 +45,15 @@
                 </ul>
 
                 <div class="d-flex justify-content-end card-footer border-top-0">
-                    <a href="#" class="btn btn-warning mr-2">Restart</a>
-                    <a href="#" class="btn btn-danger">Stop</a>
+                    <form action="/servers/start/#(server.id)" method="post">
+                        <button type="submit" class="btn btn-primary mr-2">Start</button>
+                    </form>
+                    <form action="/servers/stop/#(server.id)" method="post">
+                        <button type="submit" class="btn btn-warning mr-2">Stop</button>
+                    </form>
+                    <form action="/servers/delete/#(server.id)" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
                 
             </div>
