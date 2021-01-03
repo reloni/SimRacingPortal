@@ -68,10 +68,10 @@ let package = Package(
                 // builds. See <https://github.com/swift-server/guides#building-for-production> for details.
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
             ]
-        )
-        // .testTarget(name: "AppTests", dependencies: [
-        //     .target(name: "App"),
-        //     .product(name: "XCTVapor", package: "vapor"),
-        // ])
+        ),
+        .testTarget(name: "DockerClientTests", dependencies: [
+            .target(name: "DockerClient"),
+            .product(name: "XCTVapor", package: "vapor"),
+        ])
     ]
 )

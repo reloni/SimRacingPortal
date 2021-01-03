@@ -1,0 +1,23 @@
+{
+    "image": "nginx:alpine",
+    "hostConfig": {
+        "binds": [
+        "/Users/AntonEfimenko/_tempdel/accserverexample:/accserver"
+        ],
+        "portBindings": {
+        "9232/tcp": [
+            {
+            "hostPort": "9232"
+            }
+        ],
+        "9231/udp": [
+            {
+            "hostPort": "9231"
+            }
+        ]
+        }
+    },
+    "labels": {
+        "track": "test"
+    }
+}
